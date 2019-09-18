@@ -27,5 +27,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darklordace/alghijudge.git"
+  },
+  "author": "Firdaus Al-Ghifari",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/darklordace/alghijudge/issues"
+  },
+  "homepage": "https://github.com/darklordace/alghijudge#readme"
 }
