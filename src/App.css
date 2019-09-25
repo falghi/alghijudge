@@ -1,33 +1,35 @@
+body {
+  background-color: #676a7e;
+}
+
 .App {
+  color: #f8f8f8;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.title {
+  padding-top: 25px;
+  padding-bottom: 5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.problem-name {
+  text-align: left;
+  padding-bottom: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.problem-name .btn {
+  color: #f8f8f8;
+  font-size: 1.15em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.bottom {
+  text-align: right;
+}
+
+.submit-btn {
+  margin-top: 20px;
+  max-width: 150px;
+  width: 100%;
+  color: #fafafa;
+  background-color: #282a36;
 }
