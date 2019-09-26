@@ -13,7 +13,16 @@ class App extends Component {
 
     this.state = {
       problemName: "TP-1 SDA 2019",
-      code: ""
+      code: "",
+      buttonDisabled: false,
+      submissionStatus: "",
+      input: "",
+      hasil: {
+        run_status: {
+          output: ""
+        }
+      },
+      output: ""
     }
   }
 
@@ -22,6 +31,7 @@ class App extends Component {
   }
 
   submitCode = () => {
+    this.setState({ buttonDisabled: true });
     fetch(process.env.REACT_APP_API_URL + '/submitcode', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
@@ -29,7 +39,61 @@ class App extends Component {
         problemName: this.state.problemName,
         code: this.state.code
       })
+    }).then(resp => resp.json())
+    .then(data => {
+      if (data === "failed") {
+        this.setState({ buttonDisabled: false });
+        alert("Submit Failed");
+        return;
+      }
+      this.setState({ buttonDisabled: false, input: data.input, hasil: data.hasil, output: data.output }, () => {
+        if (data.hasil.compile_status !== "OK") {
+          this.setState({ submissionStatus: data.hasil.compile_status });
+        } else if (data.hasil.run_status.status !== "AC") {
+          this.setState({ submissionStatus: data.hasil.run_status.status });
+        } else if (data.hasil.run_status.output === data.output) {
+          this.setState({ submissionStatus: "AC" });
+        } else {
+          this.setState({ submissionStatus: "WA" });
+        }
+      });
     });
+  }
+
+  getIOResult = () => {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <h3 className="text-center">Test Case 1</h3>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            {
+              this.state.submissionStatus === "AC" ?
+                <h4>Status: <span style={{ color: "#a3ffa3" }}>AC</span></h4>
+              :
+                <h4>Status: <span style={{ color: "#fa7979" }}>{this.state.submissionStatus}</span></h4>
+            }
+          </div>
+        </div>
+        <div className="row pt-2">
+          <div className="col-lg-4">
+            Input:
+            <div className="card card-body">{this.state.input}</div>
+          </div>
+          <div className="col-lg-4">
+            Expected Output:
+            <div className="card card-body">{this.state.output}</div>
+          </div>
+          <div className="col-lg-4">
+            Program Output:
+            <div className="card card-body">{this.state.hasil.run_status.output}</div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   render() {
@@ -62,7 +126,20 @@ class App extends Component {
               />
             </div>
             <div className="bottom">
-              <button type="button" className="btn btn-dark submit-btn" onClick={this.submitCode}>Submit</button>
+              {
+                this.state.buttonDisabled ?
+                  <button type="button" className="btn btn-dark submit-btn" disabled>Loading...</button>
+                :
+                  <button type="button" className="btn btn-dark submit-btn" onClick={this.submitCode}>Submit</button>
+              }
+            </div>
+            <div className="hasil">
+              {
+                this.state.submissionStatus === "" ?
+                  <span></span>
+                : 
+                  this.getIOResult()
+              }
             </div>
           </div>
         </div>
