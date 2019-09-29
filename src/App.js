@@ -15,7 +15,8 @@ class App extends Component {
       problemName: "TP-1 SDA 2019",
       code: "",
       buttonDisabled: false,
-      data: []
+      data: [],
+      showIO: []
     }
   }
 
@@ -38,24 +39,32 @@ class App extends Component {
         this.setState({ buttonDisabled: false });
         alert("Submit Failed");
       } else {
-        this.setState({ buttonDisabled: false, data: data });
+        let showIO = [];
+        data.forEach(() => showIO.push(false));
+        this.setState({ buttonDisabled: false, data: data, showIO: showIO });
       }
     });
+  }
+
+  toggleIO = (index) => {
+    let showIO = Array.from(this.state.showIO);
+    showIO[index] = true;
+    this.setState({ showIO: showIO });
   }
 
   getIOResult = () => {
     let index = 0;
     return this.state.data.map(value => {
-      ++index;
+      let idx = ++index;
       let submissionStatus = "WA";
       if (value.programOutput.stdout === value.expectedOutput) {
         submissionStatus = "AC";
       }
       return (
-        <div key={ index } className="container">
+        <div key={ idx } className="container">
           <div className="row">
             <div className="col">
-              <h3 className="text-center">Test Case { index }</h3>
+              <h3 className="text-center">Test Case { idx }</h3>
             </div>
           </div>
           <div className="row">
@@ -66,22 +75,35 @@ class App extends Component {
                 :
                   <h4>Status: <span style={{ color: "#fa7979" }}>{submissionStatus}</span></h4>
               }
+              {
+                this.state.showIO[idx] ?
+                  <span></span>
+                :
+                <button type="button" className="btn btn-dark show-btn w-100" onClick={() => this.toggleIO(idx)}>
+                  Show Input/Output
+                </button>
+              }
             </div>
           </div>
-          <div className="row pt-2">
-            <div className="col-lg-4">
-              Input:
-              <div className="card card-body">{value.input}</div>
-            </div>
-            <div className="col-lg-4">
-              Expected Output:
-              <div className="card card-body">{value.expectedOutput}</div>
-            </div>
-            <div className="col-lg-4">
-              Program Output:
-              <div className="card card-body">{value.programOutput.stdout}</div>
-            </div>
-          </div>
+          {
+            this.state.showIO[idx] ?
+              <div className="row pt-2">
+                <div className="col-lg-4">
+                  Input:
+                  <div className="card card-body">{value.input}</div>
+                </div>
+                <div className="col-lg-4">
+                  Expected Output:
+                  <div className="card card-body">{value.expectedOutput}</div>
+                </div>
+                <div className="col-lg-4">
+                  Program Output:
+                  <div className="card card-body">{value.programOutput.stdout}</div>
+                </div>
+              </div>
+            :
+              <span></span>
+          }
         </div>
       )
     });
@@ -127,7 +149,7 @@ class App extends Component {
             </div>
             <div className="hasil">
               {
-                this.state.hasil === [] ?
+                this.state.data === [] ?
                   <span></span>
                 :
                   this.getIOResult()

@@ -31,11 +31,22 @@ body {
   max-width: 150px;
   width: 100%;
   color: #fafafa;
-  background-color: #282a36;
+  background-color: #2b2c39;
 }
 
 .submit-btn:hover {
   background-color: #181a26;
+}
+
+.show-btn {
+  width: 100%;
+  color: #fafafa;
+  background-color: #404353;
+  border-color: #404353;
+}
+
+.show-btn:hover {
+  background-color: #2b2c39;
 }
 
 .submit-btn:disabled {
