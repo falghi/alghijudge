@@ -48,9 +48,7 @@ class App extends Component {
     return this.state.data.map(value => {
       ++index;
       let submissionStatus = "WA";
-      if (value.hasil.run_status.status !== "AC") {
-        submissionStatus = value.hasil.run_status.status;
-      } else if (value.hasil.run_status.output === value.output) {
+      if (value.programOutput.stdout === value.expectedOutput) {
         submissionStatus = "AC";
       }
       return (
@@ -77,11 +75,11 @@ class App extends Component {
             </div>
             <div className="col-lg-4">
               Expected Output:
-              <div className="card card-body">{value.output}</div>
+              <div className="card card-body">{value.expectedOutput}</div>
             </div>
             <div className="col-lg-4">
               Program Output:
-              <div className="card card-body">{value.hasil.run_status.output}</div>
+              <div className="card card-body">{value.programOutput.stdout}</div>
             </div>
           </div>
         </div>
@@ -92,6 +90,7 @@ class App extends Component {
   render() {
     return (
       <div className="App container">
+        {/* <a href={ process.env.REACT_APP_API_URL + '/login' }>Login</a> */}
         <div className="row">
           <div className="col">
             <h2 className="title">AlghiJudge</h2>
