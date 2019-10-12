@@ -22,12 +22,22 @@ body {
   font-size: 1.15em;
 }
 
+.tc-link {
+  color: #9bdaff;
+  text-decoration: underline;
+  font-size: 1.1em;
+}
+
+.tc-link:hover {
+  color: #61c5ff;
+}
+
 .bottom {
-  text-align: right;
+  margin-top: 10px;
 }
 
 .submit-btn {
-  margin-top: 20px;
+  margin-top: 10px;
   max-width: 150px;
   width: 100%;
   color: #fafafa;

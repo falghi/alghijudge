@@ -9,11 +9,10 @@
     "react-scripts": "3.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "set \"REACT_APP_API_URL=https://alghijudgeapi.herokuapp.com\" && react-scripts start",
+    "build": "set \"REACT_APP_API_URL=https://alghijudgeapi.herokuapp.com\" && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serverstart": "set \"REACT_APP_API_URL=https://alghijudgeapi.herokuapp.com\" && react-scripts start",
     "localstart": "set \"REACT_APP_API_URL=http://localhost:3001\" && react-scripts start"
   },
   "eslintConfig": {
@@ -39,6 +38,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/darklordace/alghijudge/issues"
-  },
-  "homepage": "https://github.com/darklordace/alghijudge#readme"
+  }
 }

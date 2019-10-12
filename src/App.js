@@ -56,10 +56,6 @@ class App extends Component {
     let index = 0;
     return this.state.data.map(value => {
       let idx = ++index;
-      let submissionStatus = "WA";
-      if (value.programOutput.stdout === value.expectedOutput) {
-        submissionStatus = "AC";
-      }
       return (
         <div key={ idx } className="container">
           <div className="row">
@@ -70,10 +66,10 @@ class App extends Component {
           <div className="row">
             <div className="col">
               {
-                submissionStatus === "AC" ?
+                value.isAccepted === "AC" ?
                   <h4>Status: <span style={{ color: "#a3ffa3" }}>AC</span></h4>
                 :
-                  <h4>Status: <span style={{ color: "#fa7979" }}>{submissionStatus}</span></h4>
+                  <h4>Status: <span style={{ color: "#fa7979" }}>{value.isAccepted}</span></h4>
               }
               {
                 this.state.showIO[idx] ?
@@ -143,13 +139,18 @@ class App extends Component {
                 value={this.state.code}
               />
             </div>
-            <div className="bottom">
-              {
-                this.state.buttonDisabled ?
-                  <button type="button" className="btn btn-dark submit-btn" disabled>Loading...</button>
-                :
-                  <button type="button" className="btn btn-dark submit-btn" onClick={this.submitCode}>Submit</button>
-              }
+            <div className="row bottom">
+              <div className="col-md-6 text-left">
+                <a className="tc-link" href="https://github.com/darklordace/alghijudge-api/tree/master/static">Test Cases</a>
+              </div>
+              <div className="col-md-6 text-right">
+                {
+                  this.state.buttonDisabled ?
+                    <button type="button" className="btn btn-dark submit-btn" disabled>Loading...</button>
+                  :
+                    <button type="button" className="btn btn-dark submit-btn" onClick={this.submitCode}>Submit</button>
+                }
+              </div>
             </div>
             <div className="hasil">
               {
