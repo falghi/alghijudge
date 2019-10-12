@@ -12,7 +12,7 @@ class App extends Component {
     super();
 
     this.state = {
-      problemName: "TP-1 SDA 2019",
+      problemName: "TP-2 SDA 2019",
       code: "",
       buttonDisabled: false,
       data: [],
@@ -48,7 +48,7 @@ class App extends Component {
 
   toggleIO = (index) => {
     let showIO = Array.from(this.state.showIO);
-    showIO[index] = true;
+    showIO[index] ^= true;
     this.setState({ showIO: showIO });
   }
 
@@ -77,7 +77,9 @@ class App extends Component {
               }
               {
                 this.state.showIO[idx] ?
-                  <span></span>
+                <button type="button" className="btn btn-dark show-btn w-100" onClick={() => this.toggleIO(idx)}>
+                  Hide Input/Output
+                </button>
                 :
                 <button type="button" className="btn btn-dark show-btn w-100" onClick={() => this.toggleIO(idx)}>
                   Show Input/Output
@@ -120,9 +122,11 @@ class App extends Component {
               <div className="dropdown">
                 <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {this.state.problemName}
+               
                 </button>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <button className="dropdown-item" onClick={() => this.setState({ problemName: "TP-1 SDA 2019"})}>TP-1 SDA 2019</button>
+                  <button className="dropdown-item" onClick={() => this.setState({ problemName: "TP-2 SDA 2019"})}>TP-2 SDA 2019</button>
                 </div>
               </div>
             </div>
