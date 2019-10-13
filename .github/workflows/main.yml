@@ -1,4 +1,4 @@
-name: CI
+name: CD
 
 on:
   push:
@@ -12,9 +12,9 @@ jobs:
     
     steps:
     - uses: maddox/actions/ssh@master
+      with:
+        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        HOST: ${{ secrets.HOST }}
+        USER: ${{ secrets.USER }}
+        PORT: ${{ secrets.PORT }}
     - run: cd /home/falghifa/judge.falghifari.com/ && git pull
-    - env: |
-        PRIVATE_KEY
-        HOST
-        USER
-        PORT
