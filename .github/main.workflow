@@ -1,6 +1,6 @@
 workflow "CD" {
   on = "push"
-  resolves = ["master"]
+  resolves = ["Run deploy script"]
 }
 
 action "Run deploy script" {
