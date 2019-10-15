@@ -43,6 +43,9 @@ class App extends Component {
         data.forEach(() => showIO.push(false));
         this.setState({ buttonDisabled: false, data: data, showIO: showIO });
       }
+    }).catch(err => {
+      this.setState({ buttonDisabled: false });
+      alert("Submit Failed");
     });
   }
 
