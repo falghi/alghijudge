@@ -65,6 +65,7 @@ class App extends Component {
         this.setState({ buttonDisabled: false });
         alert("Submit Failed");
       } else {
+        this.setState({ showIO: [] });
         this.checkCode(data.recordName);
       }
     }).catch(err => {
