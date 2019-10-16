@@ -24,6 +24,32 @@ class App extends Component {
     this.setState({ code: newValue });
   }
 
+  checkCode = (recordName) => {
+    fetch(process.env.REACT_APP_API_URL + '/checksubmit', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        recordName: recordName
+      })
+    }).then(resp => resp.json())
+    .then(data => {
+      if (data.failed) {
+       throw new Error(data.failed);
+      }
+      let showIO = Array.from(this.state.showIO);
+      for (let i = 0; i < data.result.length - showIO.length; ++i) showIO.push(false);
+      this.setState({ data: data.result, showIO: showIO });
+      if (data.finished) {
+        this.setState({ buttonDisabled: false });
+      } else {
+        setTimeout(() => this.checkCode(recordName), 1000);
+      }
+    }).catch(err => {
+      this.setState({ buttonDisabled: false });
+      alert("Submit Failed");
+    })
+  }
+
   submitCode = () => {
     this.setState({ buttonDisabled: true });
     fetch(process.env.REACT_APP_API_URL + '/submitcode', {
@@ -39,9 +65,7 @@ class App extends Component {
         this.setState({ buttonDisabled: false });
         alert("Submit Failed");
       } else {
-        let showIO = [];
-        data.forEach(() => showIO.push(false));
-        this.setState({ buttonDisabled: false, data: data, showIO: showIO });
+        this.checkCode(data.recordName);
       }
     }).catch(err => {
       this.setState({ buttonDisabled: false });
