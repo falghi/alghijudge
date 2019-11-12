@@ -44,6 +44,13 @@ body {
   background-color: #2b2c39;
 }
 
+.copy-btn {
+  padding-top: 0px;
+  padding-bottom: 3px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
 .submit-btn:hover {
   background-color: #181a26;
 }

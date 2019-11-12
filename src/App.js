@@ -80,6 +80,20 @@ class App extends Component {
     this.setState({ showIO: showIO });
   }
 
+  funcCopy = (elemId) => () => {
+    const copyText = document.createElement('textarea');
+    copyText.value = this.state.data[elemId].input;
+    copyText.setAttribute('readonly', '');
+    copyText.style.position = 'absolute';
+    copyText.style.left = '-9999px';
+    document.body.appendChild(copyText);
+    copyText.select();
+    copyText.setSelectionRange(0, 100000);
+    document.execCommand('copy');
+    document.body.removeChild(copyText);
+    alert("Input copied!");
+  }
+
   getIOResult = () => {
     let index = 0;
     return this.state.data.map(value => {
@@ -115,7 +129,7 @@ class App extends Component {
             this.state.showIO[idx] ?
               <div className="row pt-2">
                 <div className="col-lg-4">
-                  Input:
+                  Input: <button onClick={ this.funcCopy(idx - 1) } className="btn btn-secondary copy-btn">Copy</button>
                   <div className="card card-body">{value.input}</div>
                 </div>
                 <div className="col-lg-4">
