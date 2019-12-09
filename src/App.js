@@ -12,7 +12,7 @@ class App extends Component {
     super();
 
     this.state = {
-      problemName: "TP-3 SDA 2019",
+      problemName: "TP-4 SDA 2019",
       code: "",
       buttonDisabled: false,
       data: [],
@@ -34,7 +34,7 @@ class App extends Component {
     }).then(resp => resp.json())
     .then(data => {
       if (data.failed) {
-       throw new Error(data.failed);
+        throw new Error(data.failedmsg);
       }
       let showIO = Array.from(this.state.showIO);
       for (let i = 0; i < data.result.length - showIO.length; ++i) showIO.push(false);
@@ -46,7 +46,7 @@ class App extends Component {
       }
     }).catch(err => {
       this.setState({ buttonDisabled: false });
-      alert("Submit Failed");
+      alert(err.message);
     })
   }
 
@@ -166,6 +166,7 @@ class App extends Component {
                   <button className="dropdown-item" onClick={() => this.setState({ problemName: "TP-1 SDA 2019"})}>TP-1 SDA 2019</button>
                   <button className="dropdown-item" onClick={() => this.setState({ problemName: "TP-2 SDA 2019"})}>TP-2 SDA 2019</button>
                   <button className="dropdown-item" onClick={() => this.setState({ problemName: "TP-3 SDA 2019"})}>TP-3 SDA 2019</button>
+                  <button className="dropdown-item" onClick={() => this.setState({ problemName: "TP-4 SDA 2019"})}>TP-4 SDA 2019</button>
                 </div>
               </div>
             </div>
